@@ -34,7 +34,7 @@ Modify the project `app/build.gradle` file
 
 android {
     ...
-    // set the build tools version 31.0.0
+    // set the build tools version
     buildToolsVersion "31.0.0"
        
     defaultConfig {
@@ -60,7 +60,7 @@ android {
 
 Execute the `gradle build` command to start building the android app, when building for the first time, the below error will occur.</br> 
 this is because the gradle plugin will download a corresponding version of aapt2-7.0.3-7396180-linux.jar, we need to replace it.
-<a href="./screenshot/aapt2_xxx_linux_error.jpg"><img src="./screenshot/aapt2_xxx_linux_error.jpg" width="100%" /></a>
+<a href="./screenshot/build_aapt2_error1.jpg"><img src="./screenshot/build_aapt2_error1.jpg" width="100%" /></a>
 
 Replace the aapt2 in aapt2-7.0.3-7396180-linux.jar inside with [sdk-tools/build-tools/aapt2](https://github.com/Lzhiyong/sdk-tools/releases)
 ```bash
@@ -69,13 +69,35 @@ Replace the aapt2 in aapt2-7.0.3-7396180-linux.jar inside with [sdk-tools/build-
 # execute the find command to search aapt2-xxx-linux.jar, then replace it
 cd ~/.gradle
 find . -type f -name aapt2-*-linux.jar
-cp /path/to/aapt2-7.0.3-7396180-linux.jar ./caches/modules-2/files-2.1/com.android.tools.build/aapt2/7.0.3-7396180/edbe192dae2621801ae9351b807cf156ade6899e/aapt2-7.0.3-7396180-linux.jar
+cp /path/to/aapt2-7.0.3-7396180-linux.jar ./caches/modules-2/files-2.1/com.android.tools.build/aapt2/7.0.3-7396180/942684a205d274f6b23f6d066cafcc12a17ce9ff/aapt2-7.0.3-7396180-linux.jar
 ```
-<a href="./screenshot/copy_aapt2.jpg"><img src="./screenshot/copy_aapt2.jpg" width="100%" /></a>
+<a href="./screenshot/build_aapt2_error2.jpg"><img src="./screenshot/build_aapt2_error2.jpg" width="100%" /></a>
    
 If an error occurs during the build app, this may be a network problem, please execute the `gradle build` again or execute the `gradle build --info` for more information.
 
 **** 
+
+### Making AGP jar file
+```bash
+# your directory
+cd /path/to/your_dir
+
+# copy the aapt2-xxx-linux.jar to your directory
+# aapt2-xxx-linux.jar from ~/.gradle/caches
+# use find command to serach the jar file
+cp /path/to/aapt2-xxx-linux.jar your_dir
+
+# copy the aapt2 to your directory
+# aapt2 from sdk-tools release
+cp /path/to/aapt2 your_dir
+
+# update the aapt2-xxx-linux.jar
+jar -uvf aapt2-xxx-linux.jar aapt2
+
+```
+
+**** 
+
 ### Building termux-app with termux
 ```bash
 git clone --depth 1 https://github.com/termux/termux-app
@@ -97,7 +119,7 @@ buildToolsVersion=31.0.0
 # terminal-emulator/build.gradle 
 # terminal-view/build.gradle 
 # termux-shared/build.gradle
-# add buildToolsVersion
+# set the buildToolsVersion
 android {
     ...
     compileSdkVersion project.properties.compileSdkVersion.toInteger()
@@ -111,7 +133,7 @@ gradle assembleDebug
 
 ```
 <div align="left">
-    <img src="./screenshot/build_termux_app_01.jpg" width="50%" /><img src="./screenshot/build_termux_app_02.jpg" width="50%" />
+    <img src="./screenshot/build_termux_app1.jpg" width="50%" /><img src="./screenshot/build_termux_app2.jpg" width="50%" />
 </div>
 
 **** 
@@ -129,7 +151,7 @@ cd example/hello-jni-kotlinApp
 gradle assembleDebug
 ```
 <div align="left">
-    <img src="./screenshot/build_example_01.jpg" width="50%" /><img src="./screenshot/build_example_02.jpg" width="50%" />
+    <img src="./screenshot/build_example1.jpg" width="50%" /><img src="./screenshot/build_example2.jpg" width="50%" />
 </div>
 
 **** 
